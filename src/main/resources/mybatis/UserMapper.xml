@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wdx.mapper.UserMapper">
+
+	<resultMap type="User" id="UserResult">
+		<id property="id" column="id"/>
+		<result property="name"     column="name"      />
+		<result property="password"     column="password"      />
+		<result property="perms"     column="perms"      />
+	</resultMap>
+
+	<select id="findByName" parameterType="String" resultType="User">
+		SELECT * from `user` WHERE `NAME` =#{name}
+	</select>
+
+	<select id="findById" parameterType="int" resultType="User">
+		SELECT * from `user` WHERE id =#{id}
+	</select>
+
+	<insert id="save" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO `user` (`name`,`password`,perms) VALUES(#{name},#{password},#{perms})
+	</insert>
+</mapper> 
