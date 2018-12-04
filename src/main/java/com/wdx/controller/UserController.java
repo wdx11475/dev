@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class UserController {
@@ -78,7 +79,8 @@ public class UserController {
     }
 
     @RequestMapping("saveUser")
-    public void saveUser(User user){
+    @ResponseBody
+    public String saveUser(User user){
         // 获取盐值，即用户名
         ByteSource salt = ByteSource.Util.bytes(user.getName());
         /*
@@ -92,6 +94,11 @@ public class UserController {
          * */
         String newPs = new SimpleHash("MD5", user.getPassword(), salt, 1).toHex();
         user.setPassword(newPs);
-        userService.save(user);
+        try {
+            userService.save(user);
+            return "true";
+        }catch (Exception e){
+            return "false";
+        }
     }
 }
