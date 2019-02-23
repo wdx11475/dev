@@ -10,7 +10,7 @@ public class TestController {
     @RequestMapping("testThymeleaf")
     public String testThymeleaf(Model model){
         model.addAttribute("name","结城明日奈");
-        return "test";
+        return "test222";
 
     }
 }
